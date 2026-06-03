@@ -1,0 +1,179 @@
+import React, { useState, useEffect } from "react";
+import api from "../api/axios";
+import { useAuth } from "../context/Auth.context";
+
+const Dashboard = () => {
+  const [jobs, setJobs] = useState([]);
+  const [applications, setApplications] = useState([]);
+  const [selectedJobId, setSelectedJobId] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "", company: "", location: "", jobType: "full-time", description: ""
+  });
+
+  const { user } = useAuth();
+
+  const fetchJobs = () => {
+    api.get("/jobs").then((res) => {
+      const myJobs = res.data.data.filter((job) => job.employer === user._id);
+      setJobs(myJobs);
+    });
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  useEffect(() => {
+    if (selectedJobId) {
+      api.get("/applicant/" + selectedJobId + "/applications")
+        .then((res) => setApplications(res.data.data));
+    }
+  }, [selectedJobId]);
+
+  const handlePostJob = async () => {
+    try {
+      await api.post("/jobs", formData);
+      setShowForm(false);
+      setFormData({ title: "", company: "", location: "", jobType: "full-time", description: "" });
+      fetchJobs();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 px-6 py-10">
+
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">My Jobs</h2>
+        <button
+          onClick={() => setShowForm(true)}
+          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 font-medium"
+        >
+          + Post New Job
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {jobs.map((job) => (
+          <div key={job._id} className="bg-white rounded-xl shadow p-5">
+            <h3 className="text-lg font-semibold text-gray-800">{job.title}</h3>
+            <p className="text-gray-500 text-sm mb-4">{job.company}</p>
+            <button
+              onClick={() => setSelectedJobId(job._id)}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+            >
+              View Applicants
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {applications.length > 0 && (
+        <div className="mt-10">
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Applicants</h3>
+          <div className="flex flex-col gap-4">
+            {applications.map((app) => (
+              <div key={app._id} className="bg-white rounded-xl shadow p-5 flex justify-between items-center">
+                <p className="text-gray-800 font-medium">{app.applicant.name}</p>
+                <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
+                  {app.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {showForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 w-full max-w-lg">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold text-gray-800">Post New Job</h2>
+              <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600 text-2xl">✕</button>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-700">Job Title</label>
+                <input
+                  className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. Frontend Developer"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-700">Company</label>
+                <input
+                  className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. Tech Corp"
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                />
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex flex-col gap-1 flex-1">
+                  <label className="text-sm font-medium text-gray-700">Location</label>
+                  <input
+                    className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="e.g. Delhi"
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  />
+                </div>
+                <div className="flex flex-col gap-1 flex-1">
+                  <label className="text-sm font-medium text-gray-700">Job Type</label>
+                  <select
+                    className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={formData.jobType}
+                    onChange={(e) => setFormData({ ...formData, jobType: e.target.value })}
+                  >
+                    <option value="full-time">Full Time</option>
+                    <option value="part-time">Part Time</option>
+                    <option value="remote">Remote</option>
+                    <option value="internship">Internship</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-700">Description</label>
+                <textarea
+                  className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  rows={4}
+                  placeholder="Describe the role..."
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                />
+              </div>
+
+              <div className="flex gap-3 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handlePostJob}
+                  className="flex-1 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                >
+                  Post Job
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+};
+
+export default Dashboard;

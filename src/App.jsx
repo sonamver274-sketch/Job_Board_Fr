@@ -1,0 +1,33 @@
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./page/Home";
+import Login from "./page/Login";
+import Register from "./page/Register";
+import JobDetail from "./page/Jobdetail";
+import Dashboard from "./page/Dashboard";
+import Navbar from "./components/Navbar"
+
+import "./App.css";
+import { AuthProvider } from "./context/Auth.context";
+
+function App() {
+ 
+
+  return <>
+   <AuthProvider>
+    <BrowserRouter>
+         <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/jobs/:id" element={<JobDetail />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+  
+    </BrowserRouter>
+   </AuthProvider>
+  </>;
+}
+
+export default App;
