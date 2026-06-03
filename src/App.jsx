@@ -5,6 +5,7 @@ import Login from "./page/Login";
 import Register from "./page/Register";
 import JobDetail from "./page/Jobdetail";
 import Dashboard from "./page/Dashboard";
+import Jobs from "./page/Jobs";
 import Navbar from "./components/Navbar"
 
 import "./App.css";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
