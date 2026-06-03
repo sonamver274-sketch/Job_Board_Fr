@@ -8,6 +8,7 @@ const Jobdetail = () => {
   const { user } = useAuth();
   const [job, setJob] = useState(null);
   const [applied, setApplied] = useState(false);
+  const [applyError, setApplyError] = useState("");
 
   useEffect(() => {
     api.get("/jobs/" + id).then((res) => setJob(res.data.data));
@@ -18,7 +19,7 @@ const Jobdetail = () => {
       await api.post("/applicant/" + id + "/apply");
       setApplied(true);
     } catch (error) {
-      console.log(error.message);
+      setApplyError("Already applied or something went wrong.");
     }
   };
   if (!job) {
@@ -34,18 +35,21 @@ const Jobdetail = () => {
         <p className="text-gray-400 text-sm mb-1">{job.jobType}</p>
         <p className="text-gray-700 mt-4 leading-relaxed">{job.description}</p>
 
-        {user &&
-          user.role === "jobSeeker" &&
-          (applied ? (
-            <p className="mt-6 text-green-600 font-semibold">Applied!</p>
+        {user && user.role === "jobSeeker" && (
+          applied ? (
+            <p className="mt-6 text-green-600 font-semibold">Applied Successfully!</p>
           ) : (
-            <button
-              onClick={handleApply}
-              className="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 font-medium"
-            >
-              Apply
-            </button>
-          ))}
+            <>
+              <button
+                onClick={handleApply}
+                className="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 font-medium"
+              >
+                Apply
+              </button>
+              {applyError && <p className="mt-2 text-red-500 text-sm">{applyError}</p>}
+            </>
+          )
+        )}
       </div>
     </div>
   );
