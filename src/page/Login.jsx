@@ -13,7 +13,7 @@ import React, { useState } from "react";
       try {
         const res = await api.post("/auth/login", { email, password });
         localStorage.setItem("token", res.data.data.token);
-        login(res.data.data);
+        login(res.data.data.user);
         navigate("/");
       } catch (error) {
         console.log(error.message);
