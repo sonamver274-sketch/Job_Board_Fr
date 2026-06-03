@@ -6,6 +6,7 @@ import Register from "./page/Register";
 import JobDetail from "./page/Jobdetail";
 import Dashboard from "./page/Dashboard";
 import Jobs from "./page/Jobs";
+import MyApplications from "./page/MyApplications";
 import Navbar from "./components/Navbar"
 
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/my-applications" element={<MyApplications />} />
       </Routes>
   
     </BrowserRouter>

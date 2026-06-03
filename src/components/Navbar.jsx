@@ -26,6 +26,9 @@ const Navbar = () => {
           {user?.role === "employer" && (
             <Link className="hover:text-gray-300" to="/dashboard">Dashboard</Link>
           )}
+          {user?.role === "jobSeeker" && (
+            <Link className="hover:text-gray-300" to="/my-applications">My Applications</Link>
+          )}
           {user ? (
             <button className="bg-red-600 px-4 py-2 rounded hover:bg-red-700" onClick={logout}>
               Logout
@@ -54,6 +57,9 @@ const Navbar = () => {
           <Link className="hover:text-gray-300" to="/jobs" onClick={() => setMenuOpen(false)}>Jobs</Link>
           {user?.role === "employer" && (
             <Link className="hover:text-gray-300" to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+          )}
+          {user?.role === "jobSeeker" && (
+            <Link className="hover:text-gray-300" to="/my-applications" onClick={() => setMenuOpen(false)}>My Applications</Link>
           )}
           {user ? (
             <button className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 text-left" onClick={() => { logout(); setMenuOpen(false); }}>
