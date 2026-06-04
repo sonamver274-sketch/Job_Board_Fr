@@ -13,11 +13,11 @@ const getTypeColor = (type) => {
 
 const Jobcard = ({ job }) => {
   return (
-    <div  className="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md hover:border-blue-300 transition-all" >
-      <h2 className="text-lg font-semibold text-gray-800">{job.title} </h2>
-       <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-    <span className="font-bold text-blue-600">{job.company?.charAt(0)}</span>
-  </div>
+    <div className="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md hover:border-blue-300 transition-all">
+      <h2 className="text-base font-semibold text-gray-800">{job.title}</h2>
+      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
+        <span className="font-bold text-blue-600 text-sm">{job.company?.charAt(0)}</span>
+      </div>
       <p className="text-gray-500 text-sm">{job.company} </p>
       <p className="text-gray-500 text-sm">{job.location} </p>
       <p className="text-blue-500 text-sm font-medium">{job.jobType} </p>
