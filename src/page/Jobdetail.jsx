@@ -30,8 +30,15 @@ const Jobdetail = () => {
     try {
       await api.post("/applicant/" + id + "/apply");
       setApplied(true);
+      setApplyError("");
     } catch (error) {
-      setApplyError("Already applied or something went wrong.");
+      if (error.response?.status === 404) {
+        setApplyError("You have already applied for this job.");
+      } else if (error.response?.status === 401) {
+        setApplyError("Please login again to apply.");
+      } else {
+        setApplyError("Something went wrong. Please try again.");
+      }
     }
   };
   if (!job) {
