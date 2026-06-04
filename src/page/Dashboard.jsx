@@ -31,6 +31,17 @@ const Dashboard = () => {
     }
   }, [selectedJobId]);
 
+  const handleUpdateStatus = async (appId, status) => {
+    try {
+      await api.put("/applicant/" + appId + "/status", { status });
+      setApplications((prev) =>
+        prev.map((app) => app._id === appId ? { ...app, status } : app)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const handlePostJob = async () => {
     try {
       await api.post("/jobs", formData);
@@ -41,6 +52,7 @@ const Dashboard = () => {
       console.log(error.message);
     }
   };
+
   return (
     <div className="min-h-screen bg-gray-50 px-6 py-10">
 
@@ -77,11 +89,32 @@ const Dashboard = () => {
           ) : (
             <div className="flex flex-col gap-4">
               {applications.map((app) => (
-                <div key={app._id} className="bg-white rounded-xl shadow p-5 flex justify-between items-center">
+                <div key={app._id} className="bg-white rounded-xl shadow p-5 flex flex-wrap justify-between items-center gap-3">
                   <p className="text-gray-800 font-medium">{app.applicant.name}</p>
-                  <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
-                    {app.status}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-sm px-3 py-1 rounded-full font-medium
+                      ${app.status === "accepted" ? "bg-green-100 text-green-600" :
+                        app.status === "rejected" ? "bg-red-100 text-red-600" :
+                        "bg-blue-100 text-blue-600"}`}>
+                      {app.status}
+                    </span>
+                    {app.status === "pending" && (
+                      <>
+                        <button
+                          onClick={() => handleUpdateStatus(app._id, "accepted")}
+                          className="text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          onClick={() => handleUpdateStatus(app._id, "rejected")}
+                          className="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                        >
+                          Reject
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
