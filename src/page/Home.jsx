@@ -11,7 +11,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 px-6 py-10">
+    <div className="min-h-screen bg-gray-50 px-10 py-10 max-w-7xl mx-auto">
       <div className="text-center mb-10">
         {" "}
         <h1 className="text-4xl font-bold text-gray-800 mb-3">
