@@ -11,8 +11,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen px-10 py-10">
-      <div className="bg-gray-950 max-w-7xl mx-auto rounded-xl p-8">
+    <div className="min-h-screen bg-gray-950 px-10 py-10 max-w-7xl mx-auto">
       <div className="text-center mb-10">
         {" "}
         <h1 className="text-4xl font-bold text-white mb-3">
@@ -31,7 +30,6 @@ const Home = () => {
           <Jobcard key={job._id} job={job} />
         ))}{" "}
       </div>
-    </div>
     </div>
   );
 };
