@@ -31,6 +31,16 @@ const Dashboard = () => {
     }
   }, [selectedJobId]);
 
+  const handleDeleteJob = async (jobId) => {
+    try {
+      await api.delete("/jobs/" + jobId);
+      setJobs((prev) => prev.filter((job) => job._id !== jobId));
+      if (selectedJobId === jobId) setSelectedJobId(null);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const handleUpdateStatus = async (appId, status) => {
     try {
       await api.put("/applicant/" + appId + "/status", { status });
@@ -71,12 +81,20 @@ const Dashboard = () => {
           <div key={job._id} className="bg-white rounded-xl shadow p-5">
             <h3 className="text-lg font-semibold text-gray-800">{job.title}</h3>
             <p className="text-gray-500 text-sm mb-4">{job.company}</p>
-            <button
-              onClick={() => setSelectedJobId(job._id)}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
-            >
-              View Applicants
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSelectedJobId(job._id)}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+              >
+                View Applicants
+              </button>
+              <button
+                onClick={() => handleDeleteJob(job._id)}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm font-medium"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>
