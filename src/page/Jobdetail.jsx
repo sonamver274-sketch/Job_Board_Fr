@@ -46,13 +46,13 @@ const Jobdetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-10">
-      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-2xl">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">{job.title}</h1>
-        <p className="text-gray-500 font-medium mb-1">{job.company}</p>
+    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-6 py-10">
+      <div className="bg-gray-800 rounded-xl shadow-md p-8 w-full max-w-2xl border border-gray-700">
+        <h1 className="text-3xl font-bold text-white mb-2">{job.title}</h1>
+        <p className="text-gray-300 font-medium mb-1">{job.company}</p>
         <p className="text-gray-400 text-sm mb-1">{job.location}</p>
         <p className="text-gray-400 text-sm mb-1">{job.jobType}</p>
-        <p className="text-gray-700 mt-4 leading-relaxed">{job.description}</p>
+        <p className="text-gray-300 mt-4 leading-relaxed">{job.description}</p>
 
         {user && user.role === "jobSeeker" && (
           applied ? (

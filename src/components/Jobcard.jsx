@@ -13,14 +13,14 @@ const getTypeColor = (type) => {
 
 const Jobcard = ({ job }) => {
   return (
-    <div className="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md hover:border-blue-300 transition-all">
-      <h2 className="text-base font-semibold text-gray-800">{job.title}</h2>
-      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
-        <span className="font-bold text-blue-600 text-sm">{job.company?.charAt(0)}</span>
+    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-all">
+      <h2 className="text-base font-semibold text-white">{job.title}</h2>
+      <div className="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center mb-2">
+        <span className="font-bold text-blue-400 text-sm">{job.company?.charAt(0)}</span>
       </div>
-      <p className="text-gray-500 text-sm">{job.company} </p>
-      <p className="text-gray-500 text-sm">{job.location} </p>
-      <p className="text-blue-500 text-sm font-medium">{job.jobType} </p>
+      <p className="text-gray-400 text-sm">{job.company}</p>
+      <p className="text-gray-400 text-sm">{job.location}</p>
+      <p className="text-blue-400 text-sm font-medium">{job.jobType}</p>
       <Link
         className="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
         to={`/jobs/${job._id}`}

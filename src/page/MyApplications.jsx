@@ -13,24 +13,24 @@ const MyApplications = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8">
+    <div className="min-h-screen bg-gray-950 px-4 py-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">My Applications</h1>
+        <h1 className="text-3xl font-bold text-white mb-6">My Applications</h1>
 
         {applications.length === 0 ? (
-          // agar koi application nahi hai
-          <p className="text-gray-400 text-center mt-20">You have not applied to any job yet.</p>
+          <p className="text-gray-500 text-center mt-20">You have not applied to any job yet.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {applications.map((app) => (
-              <div key={app._id} className="bg-white rounded-xl shadow p-5 flex justify-between items-center">
+              <div key={app._id} className="bg-gray-800 rounded-xl border border-gray-700 p-5 flex justify-between items-center">
                 <div>
-                  {/* job ka title aur company */}
-                  <h2 className="text-lg font-semibold text-gray-800">{app.job.title}</h2>
-                  <p className="text-gray-500 text-sm">{app.job.company} • {app.job.location}</p>
+                  <h2 className="text-lg font-semibold text-white">{app.job.title}</h2>
+                  <p className="text-gray-400 text-sm">{app.job.company} • {app.job.location}</p>
                 </div>
-                {/* application ka status - pending/accepted/rejected */}
-                <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
+                <span className={`text-sm px-3 py-1 rounded-full font-medium
+                  ${app.status === "accepted" ? "bg-green-900 text-green-400" :
+                    app.status === "rejected" ? "bg-red-900 text-red-400" :
+                    "bg-blue-900 text-blue-400"}`}>
                   {app.status}
                 </span>
               </div>

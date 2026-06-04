@@ -21,20 +21,18 @@ import React, { useState } from "react";
     };
 
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <form className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 w-full max-w-md flex flex-col
-  gap-5">
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+        <form className="bg-gray-800 p-8 rounded-xl border border-gray-700 w-full max-w-md flex flex-col gap-5">
 
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
-            <p className="text-gray-500 mt-1">Sign in to your account</p>
+            <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
+            <p className="text-gray-400 mt-1">Sign in to your account</p>
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Email</label>
+            <label className="text-sm font-medium text-gray-300">Email</label>
             <input
-              className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2
-  focus:ring-blue-500"
+              className="bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"
@@ -43,10 +41,9 @@ import React, { useState } from "react";
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Password</label>
+            <label className="text-sm font-medium text-gray-300">Password</label>
             <input
-              className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2
-  focus:ring-blue-500"
+              className="bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
@@ -62,7 +59,7 @@ import React, { useState } from "react";
             Sign In
           </button>
 
-          <Link className="text-sm text-center text-blue-600 hover:underline" to="/register">
+          <Link className="text-sm text-center text-blue-400 hover:underline" to="/register">
             Don't have an account? Register
           </Link>
 
