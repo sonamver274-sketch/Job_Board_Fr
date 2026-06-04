@@ -27,7 +27,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (selectedJobId) {
       api.get("/applicant/" + selectedJobId + "/applications")
-        .then((res) => setApplications(res.data.data));
+        .then((res) => setApplications(res.data.data)).catch(() => setApplications([]));;
     }
   }, [selectedJobId]);
 
@@ -41,7 +41,6 @@ const Dashboard = () => {
       console.log(error.message);
     }
   };
-
   return (
     <div className="min-h-screen bg-gray-50 px-6 py-10">
 
@@ -70,19 +69,23 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {applications.length > 0 && (
+      {selectedJobId && (
         <div className="mt-10">
           <h3 className="text-2xl font-bold text-gray-800 mb-4">Applicants</h3>
-          <div className="flex flex-col gap-4">
-            {applications.map((app) => (
-              <div key={app._id} className="bg-white rounded-xl shadow p-5 flex justify-between items-center">
-                <p className="text-gray-800 font-medium">{app.applicant.name}</p>
-                <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
-                  {app.status}
-                </span>
-              </div>
-            ))}
-          </div>
+          {applications.length === 0 ? (
+            <p className="text-gray-500">No applicants yet.</p>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {applications.map((app) => (
+                <div key={app._id} className="bg-white rounded-xl shadow p-5 flex justify-between items-center">
+                  <p className="text-gray-800 font-medium">{app.applicant.name}</p>
+                  <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
+                    {app.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

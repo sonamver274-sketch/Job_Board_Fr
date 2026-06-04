@@ -12,6 +12,18 @@ const Jobdetail = () => {
 
   useEffect(() => {
     api.get("/jobs/" + id).then((res) => setJob(res.data.data));
+
+  }, [id]);
+
+  useEffect(() => {
+    if (user && user.role === "jobSeeker") {
+      api.get("/applicant/my")
+        .then((res) => {
+          const alreadyApplied = res.data.data.some((app) => app.job._id === id);
+          if (alreadyApplied) setApplied(true);
+        })
+        .catch(() => {});
+    }
   }, [id]);
 
   const handleApply = async () => {
