@@ -1,16 +1,69 @@
-# React + Vite
+# JobFlow — Job Board Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack job board application built by **Sonam Verma**. JobFlow connects job seekers with employers — allowing users to browse jobs, apply, and track application status in real time.
 
-Currently, two official plugins are available:
+**Live Demo:** https://job-board-fr.onrender.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Job Seeker**
+- Browse all job listings
+- Search jobs by title, company, or location
+- View job details and apply with one click
+- Track application status (Pending / Accepted / Rejected)
 
-## Expanding the ESLint configuration
+**Employer**
+- Post new job listings
+- View all applicants for each job
+- Accept or reject applicants
+- Delete job postings
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**General**
+- JWT-based authentication
+- Role-based access (jobSeeker / employer)
+- Protected routes — unauthorized users are redirected
+- Responsive design — works on mobile and desktop
+
+---
+
+## Tech Stack
+
+| Technology | Usage |
+|---|---|
+| React + Vite | Frontend framework |
+| Tailwind CSS | Styling |
+| React Router DOM | Client-side routing |
+| Axios | API requests |
+| Context API | Auth state management |
+
+---
+
+## Getting Started
+
+```bash
+# Clone the repo
+git clone https://github.com/sonamver274-sketch/Job_Board_Fr.git
+cd Job_Board_Fr
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+---
+
+## Backend
+
+The backend API for this project:
+https://github.com/sonamver274-sketch/Job_Board_Profile
+
+---
+
+## Author
+
+**Sonam Verma**
+GitHub: [@sonamver274-sketch](https://github.com/sonamver274-sketch)
