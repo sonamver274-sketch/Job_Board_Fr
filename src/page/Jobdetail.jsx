@@ -28,7 +28,7 @@ const Jobdetail = () => {
 
   const handleApply = async () => {
     try {
-      await api.post("/applicant/" + id + "/apply");
+      await api.post("/applicant/" + id + "/apply", {});
       setApplied(true);
       setApplyError("");
     } catch (error) {
