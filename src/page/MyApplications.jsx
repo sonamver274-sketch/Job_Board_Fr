@@ -13,8 +13,8 @@ const MyApplications = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen px-4 py-8">
+      <div className="bg-gray-950 max-w-3xl mx-auto rounded-xl p-6">
         <h1 className="text-3xl font-bold text-white mb-6">My Applications</h1>
 
         {applications.length === 0 ? (

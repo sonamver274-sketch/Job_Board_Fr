@@ -64,7 +64,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 px-6 py-10">
+    <div className="min-h-screen px-6 py-10">
+      <div className="bg-gray-950 max-w-6xl mx-auto rounded-xl p-6">
 
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-white">My Jobs</h2>
@@ -226,6 +227,7 @@ const Dashboard = () => {
         </div>
       )}
 
+    </div>
     </div>
   );
 };
