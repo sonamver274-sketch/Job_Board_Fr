@@ -16,6 +16,7 @@ const Home = () => {
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [selectedSalary, setSelectedSalary] = useState(null);
+  const [showMobileFilter, setShowMobileFilter] = useState(false);
 
   useEffect(() => {
     api.get("/jobs").then((res) => setJobs(res.data.data));
@@ -55,7 +56,7 @@ const Home = () => {
   const hasFilters = selectedTypes.length > 0 || selectedLocations.length > 0 || selectedCompanies.length > 0 || selectedSalary;
 
   return (
-    <div className="min-h-screen bg-gray-950 px-10 py-10">
+    <div className="min-h-screen bg-gray-950 px-4 md:px-10 py-10">
       <div className="max-w-7xl mx-auto">
 
         <div className="text-center mb-10">
@@ -81,9 +82,47 @@ const Home = () => {
           </div>
         </div>
 
+        <div className="md:hidden mb-3">
+          <button
+            onClick={() => setShowMobileFilter(!showMobileFilter)}
+            className="flex items-center gap-2 bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm"
+          >
+            ⚙ Filters {hasFilters && <span className="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">{selectedTypes.length + selectedLocations.length + selectedCompanies.length + (selectedSalary ? 1 : 0)}</span>}
+          </button>
+
+          {showMobileFilter && (
+            <div className="mt-3 bg-gray-800 rounded-xl border border-gray-700 p-4">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-white font-semibold text-sm">Filters</h3>
+                {hasFilters && <button onClick={clearAll} className="text-blue-400 text-xs">Clear All</button>}
+              </div>
+              <p className="text-gray-400 text-xs uppercase mb-2">Job Type</p>
+              {["full-time", "part-time", "remote", "internship"].map((type) => (
+                <label key={type} className="flex items-center justify-between mb-2 cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" checked={selectedTypes.includes(type)} onChange={() => toggle(selectedTypes, setSelectedTypes, type)} className="accent-blue-500 w-4 h-4" />
+                    <span className="text-gray-300 text-sm capitalize">{type}</span>
+                  </div>
+                  <span className="text-gray-500 text-xs">({typeCount(type)})</span>
+                </label>
+              ))}
+              <p className="text-gray-400 text-xs uppercase mt-3 mb-2">Location</p>
+              {uniqueLocations.slice(0, 5).map((loc) => (
+                <label key={loc} className="flex items-center justify-between mb-2 cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" checked={selectedLocations.includes(loc)} onChange={() => toggle(selectedLocations, setSelectedLocations, loc)} className="accent-blue-500 w-4 h-4" />
+                    <span className="text-gray-300 text-sm">{loc}</span>
+                  </div>
+                  <span className="text-gray-500 text-xs">({locCount(loc)})</span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+
         <div className="flex gap-4 items-start bg-gray-900 rounded-2xl p-4 border border-gray-800">
 
-          <div className="w-56 shrink-0 sticky top-6 self-start">
+          <div className="hidden md:block w-56 shrink-0 sticky top-6 self-start">
             <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
 
               <div className="flex justify-between items-center px-4 py-3 border-b border-gray-700">
