@@ -44,6 +44,7 @@ const Jobdetail = () => {
   if (!job) {
     return "job detail missing";
   }
+  
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-6 py-10">
