@@ -201,7 +201,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex-1 min-w-0 max-w-2xl">
+          <div className="flex-1 min-w-0">
             <p className="text-gray-500 text-sm mb-4">{filtered.length} jobs found</p>
             {filtered.length === 0 ? (
               <p className="text-gray-500 text-center mt-20">No jobs found.</p>
@@ -214,7 +214,7 @@ const Home = () => {
             )}
           </div>
 
-          <div className="w-52 shrink-0 sticky top-6 self-start">
+          <div className="hidden lg:block w-52 shrink-0 sticky top-6 self-start">
             <div className="bg-gray-800 rounded-xl border border-gray-700 p-4">
               <p className="text-blue-400 font-bold text-base leading-tight">Job<span className="text-white">Flow</span></p>
               <p className="text-xs text-blue-300 mb-3">Your Career Starts Here</p>
