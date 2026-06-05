@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    title: "", company: "", location: "", jobType: "full-time", description: ""
+    title: "", company: "", location: "", jobType: "full-time", description: "", salery: ""
   });
 
   const { user } = useAuth();
@@ -62,6 +62,7 @@ const Dashboard = () => {
       console.log(error.message);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-950 px-6 py-10">
@@ -202,6 +203,17 @@ const Dashboard = () => {
                   placeholder="Describe the role..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-300">Salary (per year in ₹)</label>
+                <input
+                  type="number"
+                  className="bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. 500000"
+                  value={formData.salery}
+                  onChange={(e) => setFormData({ ...formData, salery: e.target.value })}
                 />
               </div>
 

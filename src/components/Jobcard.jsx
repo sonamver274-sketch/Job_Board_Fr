@@ -11,22 +11,38 @@ const getTypeColor = (type) => {
     }
   };
 
+    const timeAgo = (date)=>{
+  const days = Math.floor((new Date()-new Date(date)) /  (1000 * 60 * 60 * 24));
+  if ( days===0)  return "today"
+  if (days==1) return " 1 day Ago"
+  return `${days}days ago`
+     
+  }
 const Jobcard = ({ job }) => {
   return (
     <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-all">
-      <h2 className="text-base font-semibold text-white">{job.title}</h2>
-      <div className="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center mb-2">
-        <span className="font-bold text-blue-400 text-sm">{job.company?.charAt(0)}</span>
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-9 h-9 bg-blue-900 rounded-lg flex items-center justify-center shrink-0">
+          <span className="font-bold text-blue-400 text-sm">{job.company?.charAt(0)}</span>
+        </div>
+        <div>
+          <h2 className="text-base font-semibold text-white">{job.title}</h2>
+          <p className="text-gray-400 text-xs">{job.company}</p>
+        </div>
       </div>
-      <p className="text-gray-400 text-sm">{job.company}</p>
-      <p className="text-gray-400 text-sm">{job.location}</p>
-      <p className="text-blue-400 text-sm font-medium">{job.jobType}</p>
-      <Link
-        className="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
-        to={`/jobs/${job._id}`}
-      >
-        view details
-      </Link>
+      <div className="flex flex-wrap gap-2 mb-3">
+        <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">📍 {job.location}</span>
+        <span className="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-400 font-medium">{job.jobType}</span>
+      </div>
+      <div className="flex justify-between items-center mt-2">
+        <span className="text-gray-500 text-xs">{timeAgo(job.createdAt)}</span>
+        <Link
+          className="bg-blue-600 text-white px-4 py-1.5 rounded hover:bg-blue-700 text-sm"
+          to={`/jobs/${job._id}`}
+        >
+          View Details
+        </Link>
+      </div>
     </div>
   );
 };
